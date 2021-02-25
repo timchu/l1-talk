@@ -1,0 +1,112 @@
+% \begin{frame}{What is a criterion for when points embed into
+%   Euclidean Distance?} 
+%   \begin{itemize}[<+->]
+%   \item  A distance $d$ on an $n$ point set is a Euclidean distance if and only
+%   if the matrix $D$ with:
+% 
+%  \[ D_{ij} = d(i, j)^2 \]
+% 
+%  has the property that $x^T D x \leq 0$ for all $x \bot 1$.
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}{What is a criterion for when points embed into
+  \textbf{Squared}
+  Euclidean Distance?} 
+  \begin{itemize}[<+->]
+  \item  A distance $d$ on a set $\{x_1, \ldots x_n\}$ is a \textbf{squared} Euclidean distance if and only
+  if the matrix $D$ with:
+
+ \[ D_{ij} = d(x_i, x_j) \]
+ \pause
+ has the property that $x^T D x \leq 0$ for all $x \bot 1$ [Schoenberg
+ '35].
+ \pause
+ \item A matrix with this property is called a \textbf{negative type}
+ matrix. (Classical)
+  \item Here, we assume $d(x,x) = 0$ and $d(x,y) = d(y,x)$. We do not
+  assume metric property.
+  \item But how can we test for this???
+  \end{itemize}
+\end{frame}
+% \begin{frame}{Example} 
+%   \begin{itemize}[<+->]
+%   \item Consider a 2 point set $\{x, y\}$ where $d(x,y) = \pi$.
+%   \item 
+%   $ \begin{pmatrix} 
+%   0 & \pi \\
+%   \pi & 0
+%   \end{pmatrix}
+%   $
+%   has the property that $x^T D x  \leq 0$ for $x \perp \overrightarrow{1}$.
+%   \item Therefore, $d$ is a squared Euclidean distance.
+%   \end{itemize}
+% \end{frame}
+% \begin{frame}{Example} 
+%   \begin{itemize}[<+->]
+%   \item Consider the 3 points $(0, 0), (0, 1), (1, 1)$.
+%   \item The Euclidean distances are $1, 1, \sqrt{2}$.
+%   \item The squared Euclidean distances are $1, 1, 2$.
+%   \item Therefore (by our theorem):
+%     \pause
+%      \[D = 
+%   \begin{pmatrix} 
+%   0 & 1 & 2 \\
+%   1 & 0 & 1 \\
+%   2 & 1 & 0
+%   \end{pmatrix}
+%   \]
+%   \pause
+%   has the property that $x^T D x  \leq 0$ for $x \perp \overrightarrow{1}$.
+%   \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{A Sufficient Criterion for Negative Type Matrices}
+  \begin{itemize}[<+->]
+  \item Let $D$ be a symmetric matrix.
+  \item Suppose $D$ has eigenvector $\overrightarrow{1}$, and all other
+  eigenvectors have negative eigenvalue.
+  \item Show that $D$ is negative type: $x^T D x \leq 0$
+      for all $x \perp 1$.
+  \end{itemize}
+\end{frame}
+
+ \begin{frame}{Example} 
+   \begin{itemize}[<+->]
+   \item Let 
+   $ D = \begin{pmatrix} 
+   0 & 1 \\
+   1 & 0
+   \end{pmatrix}.$
+   This has eigenvector $\overrightarrow{1}$, and all other eigenvectors $(1,
+       -1)$ have negative eigenvalue.
+   \item Therefore, it of negative type, and the associated distance is
+   a squared Euclidean distance.
+   \end{itemize}
+ \end{frame}
+
+ \begin{frame}{Exercise} 
+   \begin{itemize}[<+->]
+   \item Show that
+   $ D = \begin{pmatrix} 
+   0 & 1 & 1\\
+   1 & 0 & 1\\
+   1 & 1 & 0\\
+   \end{pmatrix}.$
+   is a negative type matrix!
+   \end{itemize}
+ \end{frame}
+\begin{frame}{A Sufficient Criterion for Showing a Distance is Squared
+  Euclidean}
+
+Let $d$ be a distance on set $x_1, \ldots x_n$, such that the matrix
+$D$ with $D_{ij} = d(x_i, x_j)$ satisfies:
+  \begin{itemize}
+  \item $D$ has $\one$ as an eigenvector.
+  \item  All other eigenvalues of $D$ are negative.
+  \end{itemize}
+  Then $D_{ij}$ embeds into squared Euclidean distance!
+\end{frame}
+
+

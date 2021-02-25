@@ -1,0 +1,366 @@
+%\begin{frame}{}
+%  \begin{itemize}[<+->]
+%  \item Why does $x^{2/3}$ send Manhattan distances to squared Euclidean
+%  distances?
+%  \item Recall that any Manhattan distance can be realized as a
+%  Manhattan distance on some corners of some hyperbox.
+%  \item Thus: we will prove $x^{2/3}$ sends Manhattan distances on
+%  hyperboxes, to squared Euclidean distance.
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{}
+%  \begin{itemize}[<+->]
+%  \item Let's do it for the $2$ dimensional hyperbox, aka the rectangle.
+%  \end{itemize}
+%\end{frame}
+
+\begin{frame}{$x^{2/3}$ sends Manhattan distances to Manhattan
+  distances}
+  \begin{itemize}[<+->]
+  \item Without loss of generality, let's assume the Manhattan distances
+  are the full set of corners on some hyperbox.
+  \item We will show that $x^{2/3}$ sends these distances to squared
+  Euclidean distances \textbf{on a hyperbox}. 
+  \item Squared Euclidean distances on a hyperbox are Manhattan
+  distances!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$x^{2/3}$ sends Manhattan distances to squared Euclidean
+  distances}
+  \begin{itemize}[<+->]
+  \item We show $x^{2/3}$ sends Manhattan distances on a box to squared
+  Euclidean distance.
+  \item We do `proof by example', using a $2$ dimensional box.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+  \begin{itemize}[<+->]
+  \item Consider a rectangle with side lengths $a, b$. Let $f(x) =
+  x^{2/3}$.
+  \item Let $x_1 = (0, 0), x_2 = (a, 0), x_3 = (b, 0), x_4 = (a, b)$.
+  \item The matrix $D$ with $D_{ij} = d(x_i, x_j)$ is:
+  \[ \begin{pmatrix}
+  0 & f(a) & f(b) & f(a+b)\\
+  f(a) & 0 & f(a+b) & f(b)\\
+  f(b) & f(a+b) & 0 & f(a)\\
+  f(a+b) & f(b) & f(a) & 0
+  \end{pmatrix}
+  \]
+  \item Claim: $\one$ is an eigenvector of $D$. (Why?)
+  \item Claim: All other eigenvalues of $D$ are negative or $0$. (Why?)
+%  \item Therefore: $D$ is negative type! 
+  \item Therefore: our Manhattan distances raised to the $2/3$ power are
+  squared Euclidean distances.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+  \[ D = \begin{pmatrix}
+  0 & f(a) & f(b) & f(a+b)\\
+  f(a) & 0 & f(a+b) & f(b)\\
+  f(b) & f(a+b) & 0 & f(a)\\
+  f(a+b) & f(b) & f(a) & 0
+  \end{pmatrix}
+  \]
+  $f(x)=x^{2/3}$
+  \begin{itemize}[<+->]
+  \item Claim: $\one$ is an eigenvector of $D$ with eigenvalue $0 +
+  f(a)+f(b)+f(a+b)$
+  \item Claim: The other eigenvectors of $D$ are the columns of the $2$ by
+  $2$ Hadamard matrix:
+  \[ \begin{pmatrix}
+  1 & 1 & 1 & 1 \\
+  1 & -1 & 1 & -1 \\
+  1 & 1 & -1 & -1 \\
+  1 & -1 & -1 & 1 \\
+  \end{pmatrix}
+  \]
+  \item Why? You can verify this by calculation. 
+  \item This is the secret use of representation theory: boxes are
+  symmetric under axial reflection, and for any permutation matrix $M$
+  corresponding to permuting the corners of our box, $DM = MD$. 
+  \item Any matrix with this property has Hadamard eigenvectors.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+  \[ D = \begin{pmatrix}
+  0 & f(a) & f(b) & f(a+b)\\
+  f(a) & 0 & f(a+b) & f(b)\\
+  f(b) & f(a+b) & 0 & f(a)\\
+  f(a+b) & f(b) & f(a) & 0
+  \end{pmatrix}
+  \]
+  $f(x)=x^{2/3}$
+  \begin{itemize}[<+->]
+  \item We are knee deep in showing $D$ is of negative type. $x^T D x
+  \leq 0$ for all $x \perp \one$.
+  \item We are showing $D$ has $\one$ as an eigenvector, and all other
+  eigenvectors are columns of the $2$ by $2$ Hadamard matrix 
+  $ \begin{pmatrix}
+  1 & 1 & 1 & 1 \\
+  1 & -1 & 1 & -1 \\
+  1 & 1 & -1 & -1 \\
+  1 & -1 & -1 & 1 \\
+  \end{pmatrix}
+ $. 
+ \item
+  The associated eigenvalues, we claim, are negative. We will show this
+  by direct computation.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+  \[ D = \begin{pmatrix}
+  0 & f(a) & f(b) & f(a+b)\\
+  f(a) & 0 & f(a+b) & f(b)\\
+  f(b) & f(a+b) & 0 & f(a)\\
+  f(a+b) & f(b) & f(a) & 0
+  \end{pmatrix}
+  \]
+  \begin{itemize}[<+->]
+  \item The eigenvalue $\lambda$ corresponding to eigenvector $v = (1, -1, 1, -1)$
+  satisfies
+  $D 
+  \begin{pmatrix}
+  1 \\
+  -1\\
+  1 \\
+  -1\\
+  \end{pmatrix} 
+  = \lambda 
+  \begin{pmatrix}
+  1 \\
+  -1\\
+  1 \\
+  -1\\
+  \end{pmatrix} 
+  $.
+  \item This can be computed by evaluating $D_1v$ where $D_1$ is the
+  first row of $D$.
+  \item This is $-f(a) + f(b) -f(a+b)$.
+  \item $= -\int_0^a f'(x)dx  -\int_b^{a+b} f'(x)dx$
+  \item Why is this eigenvalue negative, when $f = x^{2/3}$?
+  \end{itemize}
+\end{frame}
+
+%  \begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+%    \[ D = \begin{pmatrix}
+%    0 & f(a) & f(b) & f(a+b)\\
+%    f(a) & 0 & f(a+b) & f(b)\\
+%    f(b) & f(a+b) & 0 & f(a)\\
+%    f(a+b) & f(b) & f(a) & 0
+%    \end{pmatrix}
+%    \]
+%    \begin{itemize}[<+->]
+%    \item Likewise, the eigenvector corresponding to 
+%    $v = \begin{pmatrix}
+%    1 \\
+%    1\\
+%    -1 \\
+%    -1\\
+%    \end{pmatrix}$
+%    is $D_1 v$, which equals $f(a) - f(b) -f(a+b)$
+%    \item $= -\int_0^b f'(x)dx  + -\int_a^{a+b} f'(x)dx$
+%    \item Why is this eigenvalue negative?
+%    \end{itemize}
+%  \end{frame}
+ 
+ \begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+   \[ D = \begin{pmatrix}
+   0 & f(a) & f(b) & f(a+b)\\
+   f(a) & 0 & f(a+b) & f(b)\\
+   f(b) & f(a+b) & 0 & f(a)\\
+   f(a+b) & f(b) & f(a) & 0
+   \end{pmatrix}
+   \]
+   \begin{itemize}[<+->]
+   \item The eigenvalue of $D$ corresponding to $
+   v = \begin{pmatrix} 1 \\
+   -1\\
+   -1 \\
+   1\\
+   \end{pmatrix}$
+   equals
+   $D_1v = f(a) + f(b) -f(a+b)$
+   \item $= \int_0^a \int_0^b f''(x+y) dx dy$
+   \item Why is this eigenvalue negative?
+   \end{itemize}
+ \end{frame}
+ 
+ \begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Squared Euclidean}
+   \begin{itemize}[<+->]
+   \item We showed that our matrix $D$ has eigenvector $\one$ and all
+   other eigenvalues negative. This means it is negative type.
+   \item $D$ being negative type is equivalent to the distance being a
+   squared Euclidean distance. (Presented earlier without proof).
+   \item Thus, $x^{2/3}$ sends Manhattan distance to squared Euclidean
+   distance.
+   \item What property of $x^{2/3}$ did we use? What is the general
+   property of functions $f$?
+   \end{itemize}
+ \end{frame}
+ 
+ \begin{frame}{$x^{2/3}$ sends Manhattan-on-a-box to Manhattan}
+   \begin{itemize}[<+->]
+   \item We showed a weaker result than the one we wanted: $x^{2/3}$
+   sends Manhattan-on-a-box to squared Euclidean.
+   \item But I promised you that $x^{2/3}$ would send Manhattan-on-a-box
+   to squared-Euclidean-on-a-box.
+   \item We show this by backing out the actual embedding.
+   \end{itemize}
+ \end{frame}
+ 
+ \begin{frame}{Given a squared Euclidean distance, how do I find the
+   embedding?}
+   \begin{itemize}[<+->]
+   \item Let's say you have your squared Euclidean distance in a matrix
+   $D$.
+   \item You can find the matrix of dot products by computing: 
+   $ M = -\Pi D \Pi / 2$ where $\Pi$ is the projection matrix off the all
+   ones vector (Well known, exercise for the reader).
+   \item Any matrix $P$ with $PP^T = M$, has row vectors which realize
+   the squared Euclidean distance $D$. (Well known, exercise for the
+       reader).
+   \end{itemize}
+ \end{frame}
+ 
+
+\begin{frame}{Why does $M = -\Pi D \Pi/2$ give a matrix of
+  mean-centered
+  products?}
+  \begin{itemize}[<+->]
+   \item Let
+   $J$ be the all ones matrix.
+   \item Let $P$ be the matrix whose $i^{th}$ row is $p_i$.
+   \item Let $p_i$ be points such that \\ $D_{ij} = \|p_i -
+   p_j\|_2^2 = |p_i|_2^2 + |p_j|_2^2 - 2\langle p_i, p_j \rangle $.  
+     \pause
+   \[
+   D = 
+%   \begin{pmatrix} |p_1|_2^2 & |p_1|_2^2 & \ldots & |p_1|_2^2 \\
+%     |p_2|_2^2 & |p_2|_2^2 & \ldots & |p_2|_2^2 \\
+%     \ldots \\
+%     |p_n|_2^2 & |p_n|_2^2 & \ldots & |p_n|_2^2 
+%   \end{pmatrix} 
+%   +
+%   \begin{pmatrix} |p_1|_2^2 & |p_2|_2^2 & \ldots & |p_n|_2^2 \\
+%     |p_1|_2^2 & |p_2|_2^2 & \ldots & |p_n|_2^2 \\
+%     \ldots \\
+%     |p_1|_2^2 & |p_2|_2^2 & \ldots & |p_n|_2^2 
+%   \end{pmatrix} 
+   \begin{pmatrix} |p_1|^2 & 0 & 0 & \ldots \\
+     0 & |p_2|^2 & 0 &  \ldots \\
+     \ldots \\
+     0 & 0 & \ldots & |p_n|^2
+     \end{pmatrix}  J
+     + J 
+   \begin{pmatrix} |p_1|^2 & 0 & 0 & \ldots \\
+     0 & |p_2|^2 & 0 &  \ldots \\
+     \ldots \\
+     0 & 0 & \ldots & |p_n|^2
+     \end{pmatrix}
+       \]
+       \[
+     - 2PP^T
+     \]
+     \pause
+
+     \item Recall that we defined $M = -\Pi D \Pi/2$ where $\Pi$
+     projects off the all ones vector.
+     \item Then $M = \Pi PP^T \Pi$ \pause $= PP^T$.
+  \end{itemize}
+\end{frame}
+
+ \begin{frame}{Given a squared Euclidean distance, how do I find the
+   embedding?}
+   \begin{itemize}
+   \item Let's say you have your squared Euclidean distance in a matrix
+   $D$.
+   \item You can find the matrix of dot products by computing: 
+   $ M = -\Pi D \Pi / 2$ where $\Pi$ is the projection matrix off the all
+   ones vector (Well known, exercise for the reader).
+   \item Any matrix $P$ with $PP^T = M$, has row vectors which realize
+   the squared Euclidean distance $D$. (Well known, exercise for the
+       reader).
+   \end{itemize}
+ \end{frame}
+
+ \begin{frame}{Given a squared Euclidean distance, how do I find the
+   embedding?}
+   \begin{itemize}[<+->]
+   \item Let's try this on our matrix $D$ on a $2$ dimensional box, after
+   applying $x^{2/3}$ to the distances. The eigenvectors of $D$ are $h_1 = \hone, h_2 = \htwo,
+   h_3 = \hthree, h_4 = \hfour.$
+   \item We know $D = \lambda_1 h_1 h_1^T  + \lambda_2 h_2 h_2^T +
+   \lambda_3 h_3 h_3^T + \lambda_4 h_4 h_4^T$.
+   \item Here, $\lambda_i$ is the eigenvalue corresponding to
+   eigenvector $h_i$.
+   \item Then $M$, the matrix of dot products, equals $- \Pi D \Pi / 2$ where $\Pi$ is the projection matrix
+   off $\one$.
+   \item $M = \frac{1}{2} (-\lambda_2 h_2 h_2^T -
+   \lambda_3 h_3 h_3^T - \lambda_4 h_4 h_4^T)$ (Why?)
+ \end{itemize}
+ \end{frame}
+ \begin{frame}{Given a squared Euclidean distance, how do I find the
+   embedding?}
+   \begin{itemize}
+   \item We know matrix $D$ of squared Euclidean distances satisfies $D = \lambda_1 h_1 h_1^T  + \lambda_2 h_2 h_2^T +
+   \lambda_3 h_3 h_3^T + \lambda_4 h_4 h_4^T$.
+   \item Let $h_1 = \hone, h_2 = \htwo, h_3 = \hthree, h_4 = \hfour$. 
+   \item <+-> $M =  \frac{1}{2} (-\lambda_2 h_2 h_2^T -
+   \lambda_3 h_3 h_3^T - \lambda_4 h_4 h_4^T)$
+   \item <+-> Claim: $M = PP^T$, where
+   \item <+-> $P = 
+   \begin{pmatrix} 
+   \sqrt{-\lambda_2 / 2} & \sqrt{-\lambda_3 / 2} & \sqrt{-\lambda_4 / 2}\\ 
+   -\sqrt{-\lambda_2 / 2} & \sqrt{-\lambda_3 / 2} & -\sqrt{-\lambda_4 / 2}\\ 
+   \sqrt{-\lambda_2 / 2} & -\sqrt{-\lambda_3 / 2} & -\sqrt{-\lambda_4 / 2}\\ 
+   -\sqrt{-\lambda_2 / 2} & -\sqrt{-\lambda_3 / 2} & \sqrt{-\lambda_4 / 2}\\ 
+   \end{pmatrix}
+   $
+   \item <+-> The rows of $P$ are on the corners of a box! 
+   \item <+-> The box corners are $( \pm \sqrt{-\lambda_2/2}, \pm
+       \sqrt{-\lambda_3/2}, \pm\sqrt{-\lambda_4/2})$.
+   \end{itemize}
+ \end{frame}
+%   
+%   
+%   the first column of $P$ is
+%   $\sqrt{-\lambda_2/2} h_2$, the second column is $\sqrt{-\lambda_3/2} h_3$,
+%   and the third column is $\sqrt{-\lambda_4/2} h_4$.
+%   \item Claim: The rows of $P$ are on the $3$ dimensional hypercube with
+%   side lengths $\sqrt{-\lambda_2/2}, \sqrt{-\lambda_3/2},
+%   \sqrt{-\lambda_4/2}$.
+% \begin{frame}{Given a squared Euclidean distance, how do I find the
+%   embedding?}
+%   \begin{itemize}[<+->]
+%   \item We know $D = \lambda_1 \one \one^T  + \lambda_2 h_2 h_2^T +
+%   \lambda_3 h_3 h_3^T + \lambda_4 h_4 h_4^T$.
+%   \item $M =  \frac{1}{2} (-\lambda_2 h_2 h_2^T
+%   \lambda_3 h_3 h_3^T + \lambda_4 h_4 h_4^T)$ (Why?)
+%   \item $P = 
+%   \begin{pmatrix} 
+%   \sqrt{\lambda_2 / 2} & \sqrt{\lambda_3 / 2} & \sqrt{\lambda_4 / 2}\\ 
+%   -\sqrt{\lambda_2 / 2} & \sqrt{\lambda_3 / 2} & -\sqrt{\lambda_4 / 2}\\ 
+%   \sqrt{\lambda_2 / 2} & -\sqrt{\lambda_3 / 2} & -\sqrt{\lambda_4 / 2}\\ 
+%   -\sqrt{\lambda_2 / 2} & -\sqrt{\lambda_3 / 2} & \sqrt{\lambda_4 / 2}\\ 
+%   \end{pmatrix}
+%   $
+%   \end{itemize}
+% \end{frame}
+\begin{frame}{Proof Recap!}
+  \begin{itemize}
+  \item Without loss of generality, we assumed the Manhattan distances
+  are the full set of corners on some hyperbox.
+  \item We showed that $x^{2/3}$ sends these distances to squared
+  Euclidean distances \textbf{on a hyperbox}. 
+  \item Squared Euclidean distances on a hyperbox are Manhattan
+  distances!
+  \item Therefore: $x^{2/3}$ sends Manhattan distances to Manhattan
+  distances!
+  \end{itemize}
+\end{frame}

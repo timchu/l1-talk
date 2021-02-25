@@ -1,0 +1,105 @@
+
+
+\begin{frame}{Two perspectives}
+
+\begin{itemize}
+  \item <+-> Let $P$ denote a set of $n$ points in $\R^d$. \\\onslide<+->{Let $\alpha:=\max_{u,v \in P} f(\| u - v \|_2^2) / \min_{u,v \in P} f( \| u - v \|_2^2 )$.} \\\onslide<+->{Let $\epsilon$ denote the accuracy parameter.}
+	\item <+-> High-dimensional, $d = \Theta(\log n)$
+	\begin{itemize}
+		\item <+-> Is there an algorithm which runs in time $\poly(d, \log(n\alpha/\epsilon)) n^{1+o(1)}$ for multiplication and Laplacian solving? 
+		\item <+-> Is there an algorithm which runs in time $\poly(d, \log(n\alpha))n^{1+o(1)}$ for sparsification when $\epsilon=1/2$?
+	\end{itemize}
+	\item <+-> Low-dimensional,  $d = o(\log n)$
+	\begin{itemize}
+		\item <+-> Is there an algorithm which runs in time $(\log(n\alpha/\epsilon))^{O(d)} n^{1+o(1)}$ for multiplication and Laplacian solving?
+		\item <+-> Is there a sparsification algorithm which runs in time $(\log(n\alpha))^{O(d)} n^{1+o(1)}$ when $\epsilon=1/2$?
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Problem 1}
+
+\begin{itemize}
+	\item Matrix-vector multiplication
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Review of matrix-vector multiplication}
+
+\begin{itemize}
+  \item <+-> Given a matrix $A \in \R^{n \times n}$ and a vector $y \in \R^n$, the goal is compute $A \cdot y$ (exactly or approximately)
+  \item <+-> If $A$ and $y$ are dense, the naive algorithm takes $n^2$ time
+  \item <+-> If $A$ has special structure, then it can be done in $o(n^2)$ time
+  \begin{itemize}
+    \item <+-> $A$ is Fourier matrix, $A_{i,j} = e^{2\pi \sqrt{-1} ij/n}$
+    \item <+-> $A$ is Hadamard matrix, Avishay Tal's talk, {\bf Forrelation}
+    \item <+-> $A$ is random Gaussian matrix, $\Omega(n^2)$ time, {\bf Rorrelation}
+    \item <+-> $A$ is circulant matrix, my question in Avishay Tal's talk, {\bf Cirrelation}? \vspace{-4mm}{\small\begin{align*} A =
+    \begin{bmatrix} 
+    g_1 & g_2 & g_3 & \cdots & g_n \\ 
+    g_n & g_1 & g_2 & \cdots & g_{n-1} \\
+    g_{n-1} & g_n & g_1 & \cdots & g_{n-2} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    g_2 & g_3 & g_4 & \cdots & g_1
+    \end{bmatrix} \end{align*}}\vspace{-4mm}
+  \end{itemize} 
+  \item <+-> What if $A_{i,j} = f(\| x_i - x_j \|_2^2)$, where $x_1, \cdots, x_n \in \R^d$?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Multiplication, high-dimensional}
+
+\begin{block}{Multiplication}
+\onslide<+->{For any function $f : \R_{\geq 0} \to \R_{\geq 0}$ which is analytic on an interval $(0,1)$, and any $\epsilon \in (0,1)$, % $0 < \eps < 2^{-\poly (\log n)}$, 
+consider the problem of, given as input $x_1, \ldots, x_n \in \R^d$ ($d = \Theta(\log n)$) defining a $\k$ graph $G$ via $\k(x_i, x_j) = f(\|x_i -x_j\|_2^2)$, and a vector $y\in \R^n$, computing an $\eps$-approximation to $L_G \cdot y$.} 
+\begin{itemize}
+    \item<+-> If $f$ can be $\eps$-approximated by a polynomial of degree at most $o(\log n)$, then the problem can be solved in $n^{1+o(1)}$ time.
+    \item<+-> Otherwise, assuming $\SETH$, the problem requires time $n^{2 - o(1)}$. (Where $\epsilon = 2^{-\poly (\log n)}$)
+\end{itemize}
+%The same holds for $L_G$, the Laplacian matrix of $G$, replaced by $A_G$, the adjacency matrix of $G$.
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}{Definitions}
+\onslide<+->{
+\begin{block}{Multiplicatively Lipschitz}
+We say a function $f : \R_{\geq 0} \rightarrow \R_{\geq 0}$ is $(C,L)$-multiplicatively Lipschitz for $C > 1, L > 1$ if for all $x \geq 0$ and $\rho \in (1/C,C)$
+\begin{align*}
+C^{-L} f(x) \leq f(\rho x) \leq C^L f(x).
+\end{align*}
+\end{block}
+}
+\begin{itemize}
+  \item <+-> Polynomials are
+  \item <+-> 1 over polynomials (that has positive coefficients) are, e.g. $1/(2x^2+x)$
+  \item <+-> $e^{-x}$, $x^{-x^2}$ are not 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Multiplication, low-dimensional}
+
+\onslide<+->{
+\begin{block}{Algorithm (fast Gaussian transform) {\color{brown}Greengard, Strain'91}}
+Let $f(x) = \exp(-x)$. Consider the problem of, given as input $x_1, \cdots, x_n \in \R^d$ defining a $\k$ graph $G$ via $\k(x_i,x_j) = f(\| x_i - x_j \|_2^2)$, and a vector $y$, computing $\epsilon$-approximation to $A_G \cdot y$ takes $n \log^{O(d)}(1/\epsilon)$ time.
+%Given $n$ vectors $s_1, \cdots, s_n \in \R^d$, $m$ vectors $t_1, \cdots, t_m \in \R^d$, and a vector $q \in \R^n$, let function $G : \R^d \rightarrow \R$ be defined as \\
+%\hspace{35mm}$G(t) = \sum_{i=1}^n q_i \cdot \exp(-\| t - s_i \|_2^2 )$.\\
+%There is an algorithm that runs in $(m+n)\log^{O(d)} ( \| q \|_1 / \epsilon )$ time, and outputs $m$ numbers $x_1, \cdots, x_m$ such that, $x_j \approx G(t_j) \pm\epsilon$, $\forall j \in [m]$.
+\end{block}
+}
+\begin{itemize}
+  \item <+-> Taylor expansion kind of property, and geometric ideas
+\end{itemize}
+
+\onslide<+->{
+\begin{block}{Hardness}
+For some constant $c>1$, any function that is not $(C,L)$-multiplicatively Lipschitz for any constants $C > 1, L > 1$ requires $n^{2-o(1)}$ time to do $\epsilon$-approximation to %does not have an $n^{1+o(1)}$ time 
+$A_G \cdot y$ in $c^{\log^* n}$ dimensions assuming $\SETH$, where $\epsilon = 2^{-\poly(\log n)}$
+\end{block}
+}
+
+\end{frame}

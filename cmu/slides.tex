@@ -1,0 +1,468 @@
+\documentclass[]{beamer}
+\def\short{beamerx}
+
+\usepackage[absolute,overlay]{textpos}
+
+\usepackage{times}
+\usepackage{eulervm}
+
+\usepackage{subfig}
+
+\usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\usepackage{bm}
+\usepackage{tikz}
+
+\usepackage{algorithm} %%% added by zhao
+\usepackage{algpseudocode} %%% added by zhao
+
+\pgfmathsetseed{\number\pdfrandomseed}
+%\usepackage[usenames,dvipsnames]{xcolor}
+\newcommand{\N}{\mathcal{N}}
+
+\newcommand{\one}{\overrightarrow{1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\nnz}{\mathrm{nnz}}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\diag}{diag}
+%\newcommand{\wh}{\widehat}
+\newcommand{\wt}{\widetilde}
+\newcommand{\ov}{\overline}
+%\newcommand{\OPT}{\mathrm{OPT}}
+%\newcommand{\poly}{\mathrm{poly}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\constraints}{constraints}
+\DeclareMathOperator{\variables}{variables}
+\DeclareMathOperator{\degree}{degree}
+\renewcommand{\i}{\mathbf{i}}
+\newtheorem{assumption}[theorem]{Assumption}
+\usetikzlibrary{positioning, calc, chains,arrows,patterns,snakes,decorations.pathreplacing}
+
+\definecolor {utorange}   {RGB} {203,96,21}
+\definecolor {utblack}    {RGB} {99,102,106}
+\definecolor {utbrown}    {RGB} {110,98,89}
+\definecolor {utsecbrown} {RGB} {217,200,158}
+\definecolor {utsecgreen} {RGB} {208,222,187}
+\definecolor {utsecblue}  {RGB} {127,169,174}
+
+
+\newcommand{\semitransp}[2][35]{\color{fg!#1}#2}
+\definecolor{darkgreen}{RGB}{0,100,0}
+
+\definecolor{darkblue}{RGB}{0,0,200}
+\definecolor{greyblue}{RGB}{160,160,250}
+\definecolor{darkred}{RGB}{180,0,0}
+\definecolor{darkpurple}{RGB}{90,0,90}
+\newcommand{\W}{{\color{b2}W}} %%%the default color is blue
+\newcommand{\B}{{\color{darkgreen}B}}
+\definecolor{mygreen}{RGB}{80,180,0}
+\newcommand{\A}{{\color{mygreen}A}}
+\newcommand{\whA}{{\color{red}\widehat{A}}}
+\newcommand{\U}{{\color{red}U}}
+\newcommand{\V}{{\color{red}V}}
+\newcommand{\T}{{\color{orange}T}}
+\renewcommand{\S}{{\color{orange}S}}
+\newcommand{\Q}{{\color{darkgreen}Q}}
+\renewcommand{\P}{{\color{darkgreen}P}}
+\newcommand{\bv}{{\color{b2}b}}
+%%%\definecolor{refc} {RGB} {204,102,0}
+%%% use orange color for reference
+\definecolor{b1}{RGB}{0,102,255}
+\definecolor{b2}{RGB}{51,153,255}
+\definecolor{b3}{RGB}{153,204,255}
+\definecolor{b4}{RGB}{0,51,102}
+\definecolor{b5}{RGB}{0,76,153}
+\definecolor{b6}{RGB}{0,102,204}
+\definecolor{b7}{RGB}{0,128,255}
+\definecolor{b8}{RGB}{153,153,255}
+\definecolor{b9}{RGB}{51,51,255}
+
+\definecolor{r1}{RGB}{204,0,0}
+\definecolor{r2}{RGB}{255,0,0}
+\definecolor{r3}{RGB}{255,51,51}
+\definecolor{r4}{RGB}{255,102,102}
+\definecolor{r5}{RGB}{255,153,153}
+
+\definecolor{g1}{RGB}{0,153,0}
+\definecolor{g2}{RGB}{0,204,0}
+\definecolor{g3}{RGB}{0,255,0}
+\definecolor{g4}{RGB}{51,255,51}
+\definecolor{g5}{RGB}{102,255,102}
+\definecolor{g6}{RGB}{80,180,0} %%% which is also my green
+
+
+\definecolor{mycy}{RGB}{204,0,204}
+\definecolor{mycy1}{RGB}{255,0,255}
+\definecolor{mycy2}{RGB}{255,51,255}
+\definecolor{myyellow}{RGB}{153,153,0}
+
+\newcommand{\colone}{{\color{r5}1}}
+\newcommand{\coltwo}{{\color{b2}2}}
+\newcommand{\colthree}{{\color{mygreen}3}}
+\newcommand{\colfour}{{\color{r2}4}}
+\newcommand{\colfive}{{\color{b9}5}}
+\newcommand{\colsix}{{\color{darkgreen}6}}
+
+\mode<presentation>
+{
+  % or ...
+\defbeamertemplate*{footline}{infolines theme variant}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+%    \usebeamerfont{author in head/foot}\insertshortauthor~~(\insertshortinstitute)
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{headline}{split theme 2}
+{%
+  %\leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+    \insertsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{subsection in head/foot}%
+    \insertsubsectionnavigationhorizontal{\paperwidth}{}{\hskip0pt plus1filll}%
+  \end{beamercolorbox}%
+}
+
+
+  %\usetheme{shadow}
+  %\setbeamertemplate{headline}[split theme 2]
+  \usetheme{Boadilla}
+  \setbeamertemplate{footline}[infolines theme variant]
+  \setbeamertemplate {navigation symbols} {}
+
+  %\setbeamercolor {normal text} {bg=white, fg=utblack}
+  \setbeamercolor {structure} {fg=utorange}
+  \setbeamercolor {alerted text} {fg=red!85!black}
+  \setbeamercolor {item projected} {use=item,fg=black,bg=item.fg!35}
+  \setbeamercolor* {palette primary} {use=structure,fg=white, bg=utorange}
+  \setbeamercolor* {palette secondary} {use=structure,bg=utsecbrown}
+  \setbeamercolor* {palette tertiary} {use=structure,bg=utsecgreen}
+  \setbeamercolor* {palette quaternary} 
+  		   {use=structure,fg=structure.fg,bg=utsecblue}
+  \setbeamercolor* {framesubtitle} {fg=utbrown}
+  \setbeamercolor* {block title} {parent=structure,fg=black,bg=utsecgreen}
+  \setbeamercolor* {block body} {fg=black,bg=utblack!10}
+  \setbeamercolor* {block title alerted} {parent=alerted text,bg=black!15}
+  \setbeamercolor* {block title example} {parent=example text,bg=black!15}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+\newcommand{\wh}{\widehat}
+\newcounter{framenumberappendix}
+\newcommand{\backupbegin}{
+   \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+
+\newcommand\hone{\ensuremath{\begin{pmatrix} 1 \\ 1 \\ 1 \\ 1 \end{pmatrix}}}
+\newcommand\htwo{\ensuremath{\begin{pmatrix} 1 \\ -1 \\ 1 \\ -1 \end{pmatrix}}}
+\newcommand\htwot{\ensuremath{\begin{pmatrix} 1 & -1 & 1 & -1\end{pmatrix}}}
+\newcommand\vs{\vspace{3mm}}
+
+\newcommand{\hthree}{\ensuremath{\begin{pmatrix} 1 \\ 1 \\ -1 \\ -1 \end{pmatrix} }}
+\newcommand{\hthreet}{\ensuremath{\begin{pmatrix} 1 & 1 & -1 & -1 \end{pmatrix} }}
+
+\newcommand{\hfour}{\ensuremath{\begin{pmatrix} 1 \\ -1 \\ -1 \\ 1 \end{pmatrix} }}
+\newcommand{\hfourt}{\ensuremath{\begin{pmatrix} 1 & -1 & -1 & 1 \end{pmatrix} }}
+
+
+\newcommand{\norm}[2]{\lVert#2\rVert_{#1}}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\inner}[1]{\langle#1\rangle}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator*{\median}{median}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\poly}{poly}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\OPT}{OPT}
+\def\eps{\epsilon}
+\def\R{\mathbb{R}}
+\def\X{\mathcal{X}}
+\def\C{\mathbb{C}}
+\def\F{\mathbb{F}}
+\def\Ot{\tilde{O}}
+\def\Thetat{\tilde{\Theta}}
+\def\Omegat{\tilde{\Omega}}
+\def\Err{\mbox{Err}}
+\def\Cov{\mbox{Cov}}
+\def\Fc{\mathcal{F}}
+\newcommand{\SETH}{\mathsf{SETH}}
+\renewcommand{\k}{\mathsf{K}}
+
+\subject{Talks}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+\newcounter{jumping}
+
+\resetcounteronoverlays{jumping}
+
+\iffalse
+%=cf
+\fi\iftrue
+\makeatletter
+\tikzset{
+  stop jumping/.style={
+    execute at end picture={%
+      \stepcounter{jumping}%
+      \immediate\write\pgfutil@auxout{%
+        \noexpand\jump@setbb{\the\value{jumping}}{\noexpand\pgfpoint{\the\pgf@picminx}{\the\pgf@picminy}}{\noexpand\pgfpoint{\the\pgf@picmaxx}{\the\pgf@picmaxy}}
+      },
+      \csname jump@\the\value{jumping}@maxbb\endcsname
+      \path (\the\pgf@x,\the\pgf@y);
+      \csname jump@\the\value{jumping}@minbb\endcsname
+      \path (\the\pgf@x,\the\pgf@y);
+    },
+  }
+}
+\def\jump@setbb#1#2#3{%
+  \@ifundefined{jump@#1@maxbb}{%
+    \expandafter\gdef\csname jump@#1@maxbb\endcsname{#3}%
+  }{%
+    \csname jump@#1@maxbb\endcsname
+    \pgf@xa=\pgf@x
+    \pgf@ya=\pgf@y
+    #3
+    \pgfmathsetlength\pgf@x{max(\pgf@x,\pgf@xa)}%
+    \pgfmathsetlength\pgf@y{max(\pgf@y,\pgf@ya)}%
+    \expandafter\xdef\csname jump@#1@maxbb\endcsname{\noexpand\pgfpoint{\the\pgf@x}{\the\pgf@y}}%
+  }
+  \@ifundefined{jump@#1@minbb}{%
+    \expandafter\gdef\csname jump@#1@minbb\endcsname{#2}%
+  }{%
+    \csname jump@#1@minbb\endcsname
+    \pgf@xa=\pgf@x
+    \pgf@ya=\pgf@y
+    #2
+    \pgfmathsetlength\pgf@x{min(\pgf@x,\pgf@xa)}%
+    \pgfmathsetlength\pgf@y{min(\pgf@y,\pgf@ya)}%
+    \expandafter\xdef\csname jump@#1@minbb\endcsname{\noexpand\pgfpoint{\the\pgf@x}{\the\pgf@y}}%
+  }
+}
+\makeatother
+\else
+
+\includeonlyframes{cf}
+
+\makeatletter
+\tikzset{
+  stop jumping/.style={}
+}
+\makeatother
+\renewenvironment{textblock}[1]{}{}
+\fi
+
+  \tikzset{
+    invisible/.style={opacity=0, text=white},
+    visible on/.style={alt=#1{}{invisible}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} % \pgfkeysalso doesn't change the path
+    },
+    next/.style={visible on=<+->},
+  }
+\newcommand{\step}{\addtocounter{beamerpauses}{1}}
+
+
+\makeatletter
+\def\beamer@origitem{%
+  \@inmatherr\item\@ifnextchar[\@item{\@noitemargtrue\@item[\@itemlabel]%
+  \csname beamer@thcfg@item\endcsname% Insert colour in \beamer@thc@fg
+  \ifx\beamer@thc@fg\@empty\relax\else\color{\beamer@thc@fg}\fi% Execute colour
+  }}
+\makeatother
+\newcommand{\recolorfg}[1]{\setbeamercolor{normal text}{fg=#1}\setbeamercolor{item}{fg=#1}\color{#1}}
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=0.5cm]{csail-logo}{csaillogo.png}
+%\pgfdeclareimage[height=0.5cm]{mit-logo}{mitlogo.png}
+%\logo{\pgfuseimage{mit-logo}\hspace{0.08in}\pgfuseimage{csail-logo}}
+\tikzset{
+  topright/.style={anchor=north east, xshift=-3mm, yshift=-3mm},
+}
+
+\title{Functions that Preserve Manhattan Distance}
+\author[Timothy Chu] {Gary Miller, Shyam Narayanan, Mark Sellke}
+\institute{~~~~~CMU~~~~~~~~~~~~~~~~~~~~~~~~~MIT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Stanford}
+
+
+
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{}%2013-04-04}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Talk Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+
+  \tikzset{
+    action/.style={draw,rounded corners,fill=cyan,rectangle,align=left},
+    filters/.style={fill=pink},
+    nopermute/.style = {opacity=0, text opacity=0},
+    permute/.style = {},
+  }
+  \def \innerblock {
+    \node (in) {};
+    \node[action, permute, right=0cm of in] (permute) {Permute};
+        \node[action, filters, right=.5cm of permute] (filters) {Filters};
+        \node[right=2.3cm of filters] (center) {$O(k)$};
+        \node[right=2.3cm of center] (out) {};
+        \node[action, above=.3cm of center] (1sparse1) {1-sparse recovery};
+        \node[action, above=.3cm of 1sparse1] (1sparse2) {1-sparse recovery};
+        \node[action, below=.3cm of center] (1sparse3) {1-sparse recovery};
+        \node[action, below=.3cm of 1sparse3] (1sparse4) {1-sparse recovery};
+        \foreach \value in {1,2,3,4}
+           \draw[->,thick] (filters) to[out=0,in=180] (1sparse\value.west);
+        \foreach \value in {1,2,3,4}
+           \draw[-,thick] (1sparse\value.east) to[out=0,in=180] (out);
+        \draw[dotted, thick] (center) -- (1sparse1);
+        \draw[dotted, thick] (center) -- (1sparse3);
+        \draw[->, thick, permute] (permute) -- (filters);
+}
+\def \outerblock {
+  %\node[action, fill=pink, left=0.5cm of filters] (permute) {Permute};
+    \node[left=.5cm of weak] (x) {$x$};
+    \node[right=.5cm of weak] (xprime) {$\wh{x}'$};
+    \draw[->, thick] (out.west) -- (xprime);
+    \draw[->, thick, nopermute] (x) -- (filters.west);
+    \draw[->, thick, permute] (x) -- (permute.west);
+}
+
+  \newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
+
+
+\begin{document}
+\begin{frame}
+  \titlepage
+  \vspace{-0.4in}
+\begin{tikzpicture}
+\node<+-> (z) at (-1,1) {{\color{white} . }};
+\node<.-> (z) at (10,1) {{\color{white} . }};
+\node<.-> (z) at (-1,-1) {{\color{white} . }};
+\node<.-> (z) at (10,-1) {{\color{white} . }};
+%\node<.-> [] (zz) at ( 4.9,0 ) {\includegraphics[height=5 cm]{./figs/galaxy}};
+%\fill [draw=none, fill=white, fill opacity=0.5] (zz.north west) -- (zz.north east) -- (zz.south east) -- (zz.south west) -- (zz.north west) -- cycle;
+    
+\node<.-> [] (z) at ( 1.9,0 ) {\includegraphics[height=3
+  cm]{./figs/gary2}};
+\node<.-> [] (z) at ( 4.7,0 ) {\includegraphics[height=3
+  cm]{./figs/shyam}};
+\node<.-> [] (z) at ( 7.8,0 ) {\includegraphics[height=3
+  cm]{./figs/marksellke}};
+\end{tikzpicture}
+      
+\end{frame}
+
+
+\input{puzzle}
+\input{pastwork}
+\input{takeaways}
+%\input{proof_outline}
+% \input{outline_bernstein}
+% \input{bernstein}
+\input{outline_manhattan}
+\input{manhattan}
+\input{outline_euclidean}
+\input{euclidean_embedding}
+\input{proof}
+\input{bernstein}
+
+
+
+\iffalse
+\begin{comment}
+\begin{frame}{Equivalence results}
+
+\begin{itemize}
+  \item <+-> Equivalence result
+  \begin{itemize}
+    \item <+-> Matrix-Vector multiplication and Laplacian system solver
+    \begin{itemize}
+        \item <+-> If $a$ $\k$ graph can be efficiently sparsified, then
+        \item <+-> an efficient Laplacian multiplier for $\k$ graph $\iff$\\ an efficient Laplacian system solver for $\k$ graph
+    \end{itemize}
+    \item <+-> Matrix Vector multiplication 
+    \begin{itemize}
+       \item <+-> an efficient Laplacian multiplier for $\k$ graph $\iff$ \\
+       an efficient Adjacency multiplier for $\k$ graph
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+\end{comment}
+\fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%% for talk just write $\R_+ \rightarrow \R_+$.
+
+\end{document}
+
+
+%\end{document}
+%%%comment by zhao
+%\begin{frame}{Outline}
+%  \tableofcontents[pausesections]
+%\end{frame}
+%\section{Introduction}
+

@@ -1,0 +1,42 @@
+\begin{frame}{Questions to Keep in Mind}
+  \begin{itemize}
+\item What problem are we trying to solve?
+\item Why do we want to solve it?
+\item \textbf{What are some notable results in our work?}
+%\item <+-> ``The Surprising Power of Constant Depth Algebraic Proofs'' has 37 pages and on ECCC
+%\item <+-> I really want to thank the original speaker 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notable Results}
+  \begin{itemize}
+    \item In our paper, we aim to classify the $K$ and $d$ for which we can
+  achieve $n^{1+o(1)}$ running times. We also aim to classify the $K$
+  and $d$ for which you cannot achieve a running time better than
+  $n^{2-o(1)}$.
+    
+  \item Here are two of our many results:
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Notable Results}
+  \begin{enumerate}
+    \item <+-> There exist almost-linear time algorithms for finding
+      {\color{darkblue}spectral sparsifiers} of a $K-graph$ in high dimension ($\theta(\log n)$) for any
+      $K(x, y) = f(\|x-y\|_2)$ where $f$ is a polynomial with positive
+      coefficients.
+    \item <+-> {\color{red}Matrix-vector multiplication} and
+      {\color{darkgreen}solving Laplacian
+      systems} must take $n^{2-o(1)}$ time in $\theta(\log n)$ dimension,
+      for any function $K$ that is not tightly approximated by any
+      polynomial, assuming the Strong Exponential Time Hypothesis
+      (SETH). 
+      \begin{enumerate}
+        \item If $K$ is a polynomial, you can do these tasks quickly.
+        \item The functions $K(x,y) = \frac{1}{\|x-y\|_2^2}$ or
+          $K(x,y)=e^{-\|x-y\|_2}$ are not tightly approximated by any
+          polynomial.
+      \end{enumerate}
+  \end{enumerate}
+\end{frame}
+
